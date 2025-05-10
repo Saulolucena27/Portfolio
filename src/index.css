@@ -1,0 +1,169 @@
+/* Importando fontes */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Anton&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --tiger-black: #000000;
+  --tiger-bronze: #b97836;
+  --tiger-dark: #7d5023;
+  --tiger-light: #e8a653;
+}
+
+/* Estilos base */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-black text-white font-sans;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Classes de utilidade personalizadas */
+@layer components {
+  .tiger-title {
+    @apply font-heading text-3xl md:text-4xl lg:text-5xl font-bold;
+  }
+
+  .tiger-subtitle {
+    @apply text-lg md:text-xl lg:text-2xl text-white/80;
+  }
+
+  .tiger-btn {
+    @apply px-6 py-3 bg-[#b97836] text-black font-bold transform transition-all duration-300 
+           hover:bg-[#e8a653] hover:scale-105 hover:shadow-tiger focus:outline-none focus:ring-2 
+           focus:ring-[#b97836] focus:ring-opacity-50;
+  }
+
+  .tiger-btn-outline {
+    @apply px-6 py-3 bg-transparent border-2 border-[#b97836] text-[#b97836] font-bold 
+           transform transition-all duration-300 hover:bg-[#b97836]/10 hover:scale-105 
+           focus:outline-none focus:ring-2 focus:ring-[#b97836] focus:ring-opacity-50;
+  }
+
+  .section-padding {
+    @apply py-16 md:py-24 lg:py-32;
+  }
+
+  /* Animação de escaneamento para efeitos */
+  .scan-effect {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .scan-effect::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(185, 120, 54, 0.3),
+      transparent
+    );
+    animation: scan 2.5s ease-in-out infinite;
+  }
+
+  /* Efeito de texto com stroke */
+  .text-stroke {
+    -webkit-text-stroke: 1px var(--tiger-bronze);
+    color: transparent;
+  }
+
+  /* Estilização de scrollbar personalizada */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--tiger-black);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--tiger-bronze);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--tiger-dark);
+  }
+}
+
+/* Animações personalizadas */
+@keyframes scan {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 200%;
+  }
+}
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 8px var(--tiger-bronze));
+    opacity: 0.8;
+  }
+  50% {
+    filter: drop-shadow(0 0 15px var(--tiger-bronze));
+    opacity: 1;
+  }
+}
+
+@keyframes tiger-blink {
+  0%,
+  100% {
+    height: 0;
+  }
+  50% {
+    height: 100%;
+  }
+}
+
+/* Utilitários para textos */
+.tiger-gradient-text {
+  background: linear-gradient(135deg, var(--tiger-bronze), var(--tiger-light));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Efeito de hover para links */
+.tiger-link {
+  position: relative;
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.tiger-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0;
+  height: 2px;
+  background-color: var(--tiger-bronze);
+  transition: width 0.3s ease;
+}
+
+.tiger-link:hover {
+  color: var(--tiger-bronze);
+}
+
+.tiger-link:hover::after {
+  width: 100%;
+}
+
+.char {
+  display: inline-block;
+  transform-style: preserve-3d;
+}
