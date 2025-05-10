@@ -1,243 +1,262 @@
-import { useEffect, useRef, useState } from 'react';
-import gsap from 'gsap';
-import { useAnimation } from '../context/AnimationContext';
+import { useEffect, useRef, useState } from "react";
+import gsap from "gsap";
+import { useAnimation } from "../context/AnimationContext";
 
-/**
- * Componente de Projetos
- * Exibe os projetos em formato de card com animação no hover
- */
 const Projects = () => {
-  // Referências para elementos DOM
   const sectionRef = useRef(null);
   const titleRef = useRef(null);
-  const introRef = useRef(null);
   const projectsRef = useRef(null);
-  
-  // Context para animações
-  const { isSectionAnimated, markSectionAsAnimated, isElementInView } = useAnimation();
-  
-  // Estado para rastrear o projeto em hover
-  const [activeProject, setActiveProject] = useState(null);
-  
-  // Dados dos projetos
+
+  const { isSectionAnimated, markSectionAsAnimated, isElementInView } =
+    useAnimation();
+
+  // Projetos com imagens profissionais
   const projects = [
     {
       id: 1,
-      title: "TigerCommerce",
-      description: "Plataforma e-commerce com design moderno e recursos avançados de filtragem e busca.",
-      tags: ["React", "Node.js", "MongoDB", "Redux"],
-      image: "https://images.unsplash.com/photo-1661956602944-249bcd04b63f?q=80&w=2070",
+      title: "Tech Startup",
+      category: "Web Development",
+      description:
+        "Uma plataforma completa para startups tecnológicas com dashboard analytics.",
+      tags: ["React", "Node.js", "MongoDB", "D3.js"],
+      image:
+        "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2070&auto=format&fit=crop",
+      color: "#b97836",
       link: "#",
-      color: "#b97836"
     },
     {
       id: 2,
-      title: "PredatorDashboard",
-      description: "Dashboard administrativo para análise de dados e visualizações interativas.",
-      tags: ["React", "TypeScript", "D3.js", "Firebase"],
-      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070",
+      title: "E-commerce Platform",
+      category: "Full Stack",
+      description:
+        "Plataforma de e-commerce com sistema de pagamento integrado e AI para recomendações.",
+      tags: ["Next.js", "Stripe", "TensorFlow", "PostgreSQL"],
+      image:
+        "https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=2070&auto=format&fit=crop",
+      color: "#e8a653",
       link: "#",
-      color: "#b97836"
     },
     {
       id: 3,
-      title: "HuntTracker",
-      description: "Aplicativo de rastreamento de projetos e tarefas com foco em produtividade.",
-      tags: ["React Native", "GraphQL", "Apollo", "AWS"],
-      image: "https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?q=80&w=2070",
+      title: "Finance Dashboard",
+      category: "Data Visualization",
+      description:
+        "Dashboard interativo para análise financeira em tempo real.",
+      tags: ["React", "D3.js", "WebSocket", "Redux"],
+      image:
+        "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop",
+      color: "#b97836",
       link: "#",
-      color: "#b97836"
     },
     {
       id: 4,
-      title: "StripeSight",
-      description: "Site institucional com animações avançadas e recursos de acessibilidade.",
-      tags: ["Next.js", "GSAP", "Tailwind CSS", "Framer Motion"],
-      image: "https://images.unsplash.com/photo-1559310278-18a9192d909f?q=80&w=2146",
+      title: "Social Media App",
+      category: "Mobile Development",
+      description:
+        "Aplicativo social com funcionalidades de AR e compartilhamento em tempo real.",
+      tags: ["React Native", "Firebase", "AR Kit", "GraphQL"],
+      image:
+        "https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=2070&auto=format&fit=crop",
+      color: "#e8a653",
       link: "#",
-      color: "#b97836"
-    }
+    },
   ];
-  
+
+  const [activeProject, setActiveProject] = useState(null);
+
   useEffect(() => {
-    // Não anima novamente se já foi animado
-    if (isSectionAnimated('projects')) return;
-    
+    if (isSectionAnimated("projects")) return;
+
     const section = sectionRef.current;
-    
-    // Configuração da animação baseada em scroll
+
     const animateOnScroll = () => {
-      if (isElementInView(section, -100) && !isSectionAnimated('projects')) {
-        // Marca a seção como animada
-        markSectionAsAnimated('projects');
-        
-        // Timeline para as animações
+      if (isElementInView(section, -100) && !isSectionAnimated("projects")) {
+        markSectionAsAnimated("projects");
+
         const tl = gsap.timeline();
-        
-        // Animação do título
-        tl.fromTo(titleRef.current, 
-          { y: 50, opacity: 0 }, 
-          { y: 0, opacity: 1, duration: 0.7, ease: "power2.out" }
+
+        tl.fromTo(
+          titleRef.current,
+          { y: 50, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.7, ease: "power3.out" }
         );
-        
-        // Animação do texto introdutório
-        tl.fromTo(introRef.current, 
-          { y: 30, opacity: 0 }, 
-          { y: 0, opacity: 1, duration: 0.7, ease: "power2.out" }, 
-          "-=0.4"
-        );
-        
-        // Animação dos cards de projetos
-        tl.fromTo(".project-card", 
-          { y: 50, opacity: 0 }, 
-          { 
-            y: 0, 
-            opacity: 1, 
-            duration: 0.7, 
-            stagger: 0.1, 
-            ease: "back.out(1.2)" 
-          }, 
+
+        tl.fromTo(
+          ".project-card",
+          { y: 80, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.8,
+            stagger: 0.15,
+            ease: "power3.out",
+          },
           "-=0.4"
         );
       }
     };
-    
-    // Adiciona event listener para o scroll
-    window.addEventListener('scroll', animateOnScroll);
-    
-    // Verifica se a seção já está visível ao carregar
+
+    window.addEventListener("scroll", animateOnScroll);
     animateOnScroll();
-    
+
     return () => {
-      window.removeEventListener('scroll', animateOnScroll);
+      window.removeEventListener("scroll", animateOnScroll);
     };
   }, [isSectionAnimated, markSectionAsAnimated, isElementInView]);
 
   return (
-    <section 
+    <section
       id="projects"
       ref={sectionRef}
-      className="py-20 lg:py-32 bg-black relative overflow-hidden"
+      className="relative py-20 overflow-hidden bg-black lg:py-32"
     >
-      {/* Elemento decorativo - diagonal stripe */}
-      <div className="absolute inset-0 w-full h-full overflow-hidden opacity-5 pointer-events-none">
-        <div className="absolute top-0 left-0 w-full h-full transform -rotate-45 flex">
-          {Array.from({ length: 10 }).map((_, i) => (
-            <div 
-              key={i}
-              className="h-full w-4 bg-[#b97836] mx-16"
-            ></div>
-          ))}
-        </div>
+      {/* Background Pattern */}
+      <div className="absolute inset-0 opacity-5">
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23b97836' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          }}
+        ></div>
       </div>
-      
-      <div className="container mx-auto px-4">
-        <h2 
-          ref={titleRef} 
-          className="text-3xl md:text-4xl font-bold mb-8 text-center"
-        >
-          Meus <span className="text-[#b97836]">Projetos</span>
-        </h2>
-        
-        <p 
-          ref={introRef}
-          className="text-white/80 max-w-3xl mx-auto text-center mb-16"
-        >
-          Assim como um tigre que persegue sua presa com precisão e foco, cada um desses projetos
-          foi desenvolvido com <span className="text-[#b97836] font-semibold">atenção meticulosa aos detalhes</span> e 
-          <span className="text-[#b97836] font-semibold"> paixão por excelência</span>.
-        </p>
-        
-        <div 
+
+      <div className="container relative z-10 px-4 mx-auto">
+        <div className="mb-16 text-center">
+          <h2 ref={titleRef} className="mb-4 text-4xl font-bold md:text-6xl">
+            Projetos <span className="text-[#b97836]">Destacados</span>
+          </h2>
+          <p className="max-w-2xl mx-auto text-lg text-white/70">
+            Uma seleção de projetos que demonstram minha habilidade em criar
+            experiências digitais excepcionais.
+          </p>
+        </div>
+
+        <div
           ref={projectsRef}
-          className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12"
+          className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-12"
         >
           {projects.map((project) => (
-            <div 
+            <div
               key={project.id}
-              className={`project-card relative overflow-hidden group rounded-lg transition-all duration-500 ${
-                activeProject === project.id ? 'scale-[1.02]' : ''
-              }`}
+              className={`project-card group relative cursor-pointer overflow-hidden rounded-2xl`}
               onMouseEnter={() => setActiveProject(project.id)}
               onMouseLeave={() => setActiveProject(null)}
+              style={{ height: "500px" }}
             >
-              {/* Overlay com gradiente */}
-              <div 
-                className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent z-10 
-                           transition-opacity duration-300 group-hover:opacity-80"
-              ></div>
-              
-              {/* Imagem de fundo */}
-              <img 
-                src={project.image} 
-                alt={project.title}
-                className="w-full h-80 object-cover object-center transition-transform duration-700 
-                           group-hover:scale-110"
-              />
-              
-              {/* Borda animada no hover */}
-              <div className="absolute inset-0 border-2 border-transparent z-20 group-hover:border-[#b97836] 
-                              transition-all duration-300"></div>
-              
-              {/* Linha decorativa superior */}
-              <div 
-                className="absolute top-0 left-1/2 transform -translate-x-1/2 w-0 h-1 bg-[#b97836] z-20 
-                           transition-all duration-500 group-hover:w-full"
-              ></div>
-              
-              {/* Conteúdo do projeto */}
-              <div className="absolute bottom-0 left-0 right-0 p-6 z-20 transform transition-transform 
-                              duration-500 group-hover:translate-y-0 translate-y-4">
-                {/* Tags do projeto */}
-                <div className="flex flex-wrap gap-2 mb-3 opacity-0 group-hover:opacity-100 transition-opacity 
-                                duration-300 delay-100">
+              {/* Background Image */}
+              <div className="absolute inset-0">
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="object-cover w-full h-full transition-transform duration-700 transform group-hover:scale-110"
+                />
+                {/* Gradient Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent" />
+              </div>
+
+              {/* Content */}
+              <div className="absolute inset-0 flex flex-col justify-end p-8">
+                {/* Category Tag */}
+                <div className="mb-4 transition-transform duration-500 transform translate-y-10 group-hover:translate-y-0">
+                  <span
+                    className="inline-block px-4 py-2 text-sm font-medium rounded-full"
+                    style={{
+                      backgroundColor: project.color + "20",
+                      color: project.color,
+                      border: `1px solid ${project.color}40`,
+                    }}
+                  >
+                    {project.category}
+                  </span>
+                </div>
+
+                {/* Title */}
+                <h3 className="mb-3 text-3xl font-bold text-white">
+                  {project.title}
+                </h3>
+
+                {/* Description */}
+                <p className="mb-6 transition-all duration-500 transform translate-y-10 opacity-0 text-white/80 group-hover:opacity-100 group-hover:translate-y-0">
+                  {project.description}
+                </p>
+
+                {/* Tags */}
+                <div className="flex flex-wrap gap-2 mb-6 transition-all duration-500 transform translate-y-10 opacity-0 group-hover:opacity-100 group-hover:translate-y-0">
                   {project.tags.map((tag, index) => (
-                    <span 
+                    <span
                       key={index}
-                      className="text-xs bg-[#b97836]/20 text-[#b97836] py-1 px-2 rounded"
+                      className="px-3 py-1 text-sm border rounded-full bg-white/10 backdrop-blur-sm text-white/80 border-white/10"
                     >
                       {tag}
                     </span>
                   ))}
                 </div>
-                
-                <h3 className="text-xl font-bold text-white mb-2 flex items-center">
-                  <span className="text-[#b97836] mr-2">▶</span>
-                  {project.title}
-                </h3>
-                
-                <p className="text-white/70 text-sm mb-4 transform transition-all duration-500 
-                               opacity-0 group-hover:opacity-100">
-                  {project.description}
-                </p>
-                
-                <a 
+
+                {/* Link */}
+                <a
                   href={project.link}
-                  className="inline-block py-2 px-4 bg-[#b97836] text-black text-sm font-bold 
-                             transform transition-all duration-300 hover:bg-[#e8a653] rounded
-                             opacity-0 group-hover:opacity-100"
+                  className="inline-flex items-center gap-2 font-medium text-white transition-all duration-500 transform translate-y-10 opacity-0 group-hover:opacity-100 group-hover:translate-y-0"
+                  style={{ color: project.color }}
                 >
                   Ver Projeto
+                  <svg
+                    className="w-5 h-5 transition-transform transform group-hover:translate-x-2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M17 8l4 4m0 0l-4 4m4-4H3"
+                    />
+                  </svg>
                 </a>
               </div>
-              
-              {/* Efeito de scan no hover */}
-              <div 
-                className={`absolute inset-0 z-0 overflow-hidden ${
-                  activeProject === project.id ? 'scan-effect' : ''
-                }`}
-              ></div>
+
+              {/* Hover Effect Border */}
+              <div
+                className={`absolute inset-0 border-2 border-transparent transition-all duration-500
+                            ${
+                              activeProject === project.id
+                                ? "border-[#b97836]"
+                                : ""
+                            }`}
+                style={{
+                  borderColor:
+                    activeProject === project.id
+                      ? project.color
+                      : "transparent",
+                }}
+              />
             </div>
           ))}
         </div>
-        
-        {/* Botão para mais projetos */}
-        <div className="flex justify-center mt-16">
-          <a 
-            href="#" 
-            className="tiger-btn-outline rounded"
+
+        {/* View All Projects Button */}
+        <div className="mt-16 text-center">
+          <a
+            href="#"
+            className="inline-flex items-center gap-3 px-8 py-4 
+                     bg-transparent border-2 border-[#b97836] text-[#b97836] 
+                     font-bold rounded-full transform transition-all duration-300 
+                     hover:bg-[#b97836] hover:text-black hover:scale-105"
           >
             Ver Todos os Projetos
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M13 7l5 5m0 0l-5 5m5-5H6"
+              />
+            </svg>
           </a>
         </div>
       </div>

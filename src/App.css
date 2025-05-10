@@ -1,0 +1,42 @@
+@import './styles/animations.css';
+
+.custom-cursor {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  background-color: #b97836;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  mix-blend-mode: difference;
+}
+
+.cursor-follower {
+  position: fixed;
+  width: 30px;
+  height: 30px;
+  border: 2px solid #b97836;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.cursor-follower.hover {
+  background-color: rgba(185, 120, 54, 0.1);
+  border-color: #e8a653;
+}
+
+/* Hide custom cursor on mobile */
+@media (hover: none) {
+  .custom-cursor,
+  .cursor-follower {
+    display: none;
+  }
+
+  body {
+    cursor: auto !important;
+  }
+}

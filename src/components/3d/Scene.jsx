@@ -1,20 +1,37 @@
-import { Canvas } from '@react-three/fiber'
-import { OrbitControls } from '@react-three/drei'
+import { Canvas } from "@react-three/fiber";
+import { Suspense } from "react";
+import { Loader, ScrollControls } from "@react-three/drei";
+import Camera from "./Camera";
+import Lights from "./Lights";
+import TigerModel from "./TigerModel";
 
-const Scene = () => {
+const Scene = ({ children, scrollPages = 1 }) => {
   return (
-    <div style={{ width: '100vw', height: '100vh' }}>
-      <Canvas>
-        <ambientLight intensity={0.5} />
-        <pointLight position={[10, 10, 10]} />
-        <mesh>
-          <boxGeometry args={[1, 1, 1]} />
-          <meshStandardMaterial color="#b97836" />
-        </mesh>
-        <OrbitControls />
+    <>
+      <Canvas
+        shadows
+        gl={{
+          antialias: true,
+          alpha: true,
+        }}
+        camera={{
+          position: [0, 0, 5],
+          fov: 45,
+          near: 0.1,
+          far: 1000,
+        }}
+      >
+        <Suspense fallback={null}>
+          <ScrollControls pages={scrollPages} damping={0.3}>
+            <Camera />
+            <Lights />
+            {children || <TigerModel />}
+          </ScrollControls>
+        </Suspense>
       </Canvas>
-    </div>
-  )
-}
+      <Loader />
+    </>
+  );
+};
 
-export default Scene
+export default Scene;

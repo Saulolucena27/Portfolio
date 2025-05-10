@@ -1,18 +1,11 @@
 import { useState, useEffect } from "react";
 import gsap from "gsap";
 
-/**
- * Componente de barra de navegação
- * Implementa navegação responsiva com animações e efeitos
- */
 const NavBar = () => {
-  // Estado para controlar a visibilidade do menu mobile
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  // Estado para controlar o estilo da navbar ao scroll
   const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState("home");
 
-  // Lista de links da navegação
   const navLinks = [
     { name: "Home", href: "#home" },
     { name: "Sobre", href: "#about" },
@@ -21,149 +14,198 @@ const NavBar = () => {
     { name: "Contato", href: "#contact" },
   ];
 
-  // Efeito para detectar o scroll e mudar o estilo da navbar
   useEffect(() => {
     const handleScroll = () => {
       const isScrolled = window.scrollY > 20;
-      if (isScrolled !== scrolled) {
-        setScrolled(isScrolled);
+      setScrolled(isScrolled);
+
+      // Detect active section
+      const sections = navLinks.map((link) => link.href.substring(1));
+      const scrollPosition = window.scrollY + 100;
+
+      for (const section of sections) {
+        const element = document.getElementById(section);
+        if (element) {
+          const { offsetTop, offsetHeight } = element;
+          if (
+            scrollPosition >= offsetTop &&
+            scrollPosition < offsetTop + offsetHeight
+          ) {
+            setActiveSection(section);
+            break;
+          }
+        }
       }
     };
 
-    // Adiciona event listener para o scroll
     window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
-    // Cleanup
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [scrolled]);
-
-  // Efeito para animar a abertura/fechamento do menu mobile
   useEffect(() => {
     if (mobileMenuOpen) {
-      // Anima a abertura do menu
+      document.body.style.overflow = "hidden";
+
       gsap.fromTo(
         ".mobile-menu",
-        { opacity: 0, y: -20 },
-        { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }
+        { x: "100%" },
+        { x: "0%", duration: 0.5, ease: "power3.out" }
       );
 
-      // Anima os itens do menu com stagger
       gsap.fromTo(
         ".mobile-menu-item",
-        { opacity: 0, x: -20 },
+        { x: 50, opacity: 0 },
         {
-          opacity: 1,
           x: 0,
+          opacity: 1,
           duration: 0.4,
-          stagger: 0.05,
-          ease: "back.out(1.7)",
+          stagger: 0.1,
+          ease: "power3.out",
+          delay: 0.2,
         }
       );
+    } else {
+      document.body.style.overflow = "unset";
     }
   }, [mobileMenuOpen]);
 
-  // Alterna o estado do menu mobile
-  const toggleMobileMenu = () => {
-    setMobileMenuOpen(!mobileMenuOpen);
-  };
-
-  // Fecha o menu mobile e faz scroll suave para a seção
-  const handleNavClick = (href) => {
+  const handleNavClick = (e, href) => {
+    e.preventDefault();
     setMobileMenuOpen(false);
 
-    // Scroll suave para a seção
     const element = document.querySelector(href);
     if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+      const offsetTop = element.offsetTop - 80;
+      window.scrollTo({
+        top: offsetTop,
+        behavior: "smooth",
+      });
     }
   };
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed w-full top-0 z-50 transition-all duration-500 ${
         scrolled
-          ? "bg-black/90 backdrop-blur-sm py-3 shadow-lg"
-          : "bg-transparent py-5"
+          ? "bg-black/80 backdrop-blur-lg py-4 shadow-lg"
+          : "bg-transparent py-6"
       }`}
     >
-      <div className="container mx-auto px-4 flex justify-between items-center">
-        {/* Logo */}
-        <div className="logo text-2xl font-bold">
-          <a href="#home" className="text-[#b97836] flex items-center">
-            {/* Ícone estilizado de olho */}
-            <div className="w-8 h-8 mr-2 rounded-full bg-[#b97836] flex items-center justify-center">
-              <div className="w-4 h-4 bg-black rounded-full"></div>
+      <div className="container px-4 mx-auto">
+        <div className="flex items-center justify-between">
+          {/* Logo */}
+          <a
+            href="#home"
+            onClick={(e) => handleNavClick(e, "#home")}
+            className="flex items-center gap-2 group"
+          >
+            <div className="relative w-10 h-10">
+              <div
+                className="absolute inset-0 bg-[#b97836] rounded-lg transform rotate-6 
+                            group-hover:rotate-12 transition-transform duration-300"
+              ></div>
+              <div className="absolute inset-0 flex items-center justify-center bg-black rounded-lg">
+                <span className="text-[#b97836] font-bold text-xl">T</span>
+              </div>
             </div>
-            <span>TIGER</span>
+            <span className="text-xl font-bold text-white">TIGER</span>
           </a>
-        </div>
 
-        {/* Links de navegação - visíveis apenas em telas maiores */}
-        <div className="hidden md:flex space-x-6">
-          {navLinks.map((link, index) => (
-            <a
-              key={index}
-              href={link.href}
-              onClick={(e) => {
-                e.preventDefault();
-                handleNavClick(link.href);
-              }}
-              className="text-white hover:text-[#b97836] transition-colors duration-300 relative group"
-            >
-              {link.name}
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#b97836] transition-all duration-300 group-hover:w-full"></span>
-            </a>
-          ))}
-        </div>
-
-        {/* Botão de menu mobile - visível apenas em telas menores */}
-        <button
-          className="md:hidden text-white focus:outline-none"
-          onClick={toggleMobileMenu}
-          aria-label="Toggle mobile menu"
-        >
-          <div className={`hamburger-icon ${mobileMenuOpen ? "open" : ""}`}>
-            <span
-              className={`block w-6 h-0.5 bg-white mb-1.5 transition-transform duration-300 ${
-                mobileMenuOpen ? "transform rotate-45 translate-y-2" : ""
-              }`}
-            ></span>
-            <span
-              className={`block w-6 h-0.5 bg-white mb-1.5 transition-opacity duration-300 ${
-                mobileMenuOpen ? "opacity-0" : ""
-              }`}
-            ></span>
-            <span
-              className={`block w-6 h-0.5 bg-white transition-transform duration-300 ${
-                mobileMenuOpen ? "transform -rotate-45 -translate-y-2" : ""
-              }`}
-            ></span>
-          </div>
-        </button>
-      </div>
-
-      {/* Menu mobile - visível apenas quando aberto */}
-      {mobileMenuOpen && (
-        <div className="mobile-menu md:hidden bg-black/95 backdrop-blur-md">
-          <div className="container mx-auto px-4 py-5">
-            {navLinks.map((link, index) => (
+          {/* Desktop Navigation */}
+          <div className="items-center hidden gap-8 md:flex">
+            {navLinks.map((link) => (
               <a
-                key={index}
+                key={link.name}
                 href={link.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleNavClick(link.href);
-                }}
-                className="mobile-menu-item block py-3 text-white hover:text-[#b97836] transition-colors duration-300 border-b border-white/10"
+                onClick={(e) => handleNavClick(e, link.href)}
+                className={`relative text-sm font-medium transition-colors duration-300 ${
+                  activeSection === link.href.substring(1)
+                    ? "text-[#b97836]"
+                    : "text-white/70 hover:text-white"
+                }`}
               >
                 {link.name}
+                {activeSection === link.href.substring(1) && (
+                  <span
+                    className="absolute -bottom-1 left-0 w-full h-0.5 bg-[#b97836] 
+                                 rounded-full transform origin-center scale-x-100"
+                  ></span>
+                )}
               </a>
             ))}
+
+            {/* CTA Button */}
+            <a
+              href="#contact"
+              onClick={(e) => handleNavClick(e, "#contact")}
+              className="px-6 py-2.5 bg-[#b97836] text-black font-bold rounded-full
+                       transform transition-all duration-300 hover:scale-105 
+                       hover:shadow-[0_0_20px_rgba(185,120,54,0.5)]"
+            >
+              Contato
+            </a>
           </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            className="relative w-10 h-10 md:hidden focus:outline-none"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Menu"
+          >
+            <div className="absolute transform -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2">
+              <span
+                className={`block w-6 h-0.5 bg-white transform transition-all duration-300 ${
+                  mobileMenuOpen ? "rotate-45 translate-y-0" : "-translate-y-2"
+                }`}
+              ></span>
+              <span
+                className={`block w-6 h-0.5 bg-white transition-all duration-300 ${
+                  mobileMenuOpen ? "opacity-0" : "opacity-100"
+                }`}
+              ></span>
+              <span
+                className={`block w-6 h-0.5 bg-white transform transition-all duration-300 ${
+                  mobileMenuOpen ? "-rotate-45 translate-y-0" : "translate-y-2"
+                }`}
+              ></span>
+            </div>
+          </button>
         </div>
-      )}
+      </div>
+
+      {/* Mobile Menu */}
+      <div
+        className={`mobile-menu fixed inset-y-0 right-0 w-full md:hidden bg-black/95 backdrop-blur-lg
+                   transform transition-transform duration-500 ${
+                     mobileMenuOpen ? "translate-x-0" : "translate-x-full"
+                   }`}
+      >
+        <div className="flex flex-col items-center justify-center h-full px-8">
+          {navLinks.map((link, index) => (
+            <a
+              key={link.name}
+              href={link.href}
+              onClick={(e) => handleNavClick(e, link.href)}
+              className={`mobile-menu-item text-2xl font-bold py-4 transition-colors ${
+                activeSection === link.href.substring(1)
+                  ? "text-[#b97836]"
+                  : "text-white/70 hover:text-white"
+              }`}
+            >
+              {link.name}
+            </a>
+          ))}
+
+          <a
+            href="#contact"
+            onClick={(e) => handleNavClick(e, "#contact")}
+            className="mobile-menu-item mt-8 px-8 py-3 bg-[#b97836] text-black font-bold rounded-full
+                     transform transition-all duration-300 hover:scale-105"
+          >
+            Contato
+          </a>
+        </div>
+      </div>
     </nav>
   );
 };

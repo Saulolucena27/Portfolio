@@ -1,54 +1,69 @@
-import { useState, useEffect } from 'react';
-import LoadingScreen from './components/LoadingScreen';
-import Hero from './components/Hero';
-import NavBar from './components/NavBar';
-import About from './components/About';
-import Projects from './components/Projects';
-import Skills from './components/Skills';
-import Contact from './components/Contact';
-import Footer from './components/Footer';
-import Scene from './components/3d/Scene';
+import { useState, useEffect } from "react";
+import Lenis from "lenis";
+import LoadingScreen from "./components/LoadingScreen";
+import NavBar from "./components/NavBar";
+import Hero from "./components/Hero";
+import About from "./components/About";
+import Projects from "./components/Projects";
+import Skills from "./components/Skills";
+import Contact from "./components/Contact";
+import Footer from "./components/Footer";
+import CustomCursor from "./components/CustomCursor";
+import { AnimationProvider } from "./context/AnimationContext";
+import "./App.css";
 
-/**
- * Componente principal da aplicação
- * Gerencia o estado de carregamento e renderiza os componentes na ordem correta
- */
 function App() {
-  // Estado para controlar a tela de carregamento
-  const [loading, setLoading] = useState(true);
-  
-  // Estado para controlar a visibilidade do conteúdo principal
-  const [contentVisible, setContentVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
-  // Função chamada quando a animação de carregamento for concluída
+  useEffect(() => {
+    // Inicializa Lenis para smooth scroll
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      direction: "vertical",
+      gestureDirection: "vertical",
+      smooth: true,
+      mouseMultiplier: 1,
+      smoothTouch: false,
+      touchMultiplier: 2,
+      infinite: false,
+    });
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+
+    return () => {
+      lenis.destroy();
+    };
+  }, []);
+
   const handleLoadingComplete = () => {
-    setLoading(false);
-    
-    // Pequeno delay para garantir que a tela de carregamento desapareceu completamente
-    setTimeout(() => {
-      setContentVisible(true);
-    }, 300);
+    setIsLoading(false);
   };
 
   return (
-    <div className="App bg-black text-white min-h-screen">
-      {/* Tela de carregamento */}
-      <Scene />
-      {loading && <LoadingScreen onComplete={handleLoadingComplete} />}
-      
-      {/* Conteúdo principal - visível apenas após o carregamento */}
-      <div className={`main-content transition-opacity duration-1000 ${contentVisible ? 'opacity-100' : 'opacity-0'}`}>
-        <NavBar />
-        <main>
-          <Hero />
-          <About />
-          <Projects />
-          <Skills />
-          <Contact />
-        </main>
-        <Footer />
+    <AnimationProvider>
+      <div className="App">
+        {isLoading ? (
+          <LoadingScreen onComplete={handleLoadingComplete} />
+        ) : (
+          <>
+            <CustomCursor />
+            <NavBar />
+            <Hero />
+            <About />
+            <Projects />
+            <Skills />
+            <Contact />
+            <Footer />
+          </>
+        )}
       </div>
-    </div>
+    </AnimationProvider>
   );
 }
 
