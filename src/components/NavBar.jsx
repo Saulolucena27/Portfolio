@@ -9,6 +9,7 @@ const NavBar = () => {
   const navLinks = [
     { name: "Home", href: "#home" },
     { name: "Sobre", href: "#about" },
+    { name: "Por que Tiger?", href: "#whytiger" },
     { name: "Projetos", href: "#projects" },
     { name: "Habilidades", href: "#skills" },
     { name: "Contato", href: "#contact" },

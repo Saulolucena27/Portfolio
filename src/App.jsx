@@ -11,6 +11,10 @@ import Footer from "./components/Footer";
 import CustomCursor from "./components/CustomCursor";
 import { AnimationProvider } from "./context/AnimationContext";
 import "./App.css";
+import Technologies from "./components/Technologies";
+import WhyTiger from "./components/WhyTiger";
+import GlobalScrollEffects from "./components/GlobalScrollEffects";
+import HorizontalScroll from "./components/HorizontalScroll";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -52,11 +56,15 @@ function App() {
           <LoadingScreen onComplete={handleLoadingComplete} />
         ) : (
           <>
+            <GlobalScrollEffects />
             <CustomCursor />
             <NavBar />
             <Hero />
             <About />
+            <WhyTiger />
             <Projects />
+            <HorizontalScroll />
+            <Technologies />
             <Skills />
             <Contact />
             <Footer />

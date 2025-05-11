@@ -71,10 +71,10 @@ const About = () => {
   }, [isSectionAnimated, markSectionAsAnimated, isElementInView]);
 
   const stats = [
-    { value: "5+", label: "Anos de Experiência" },
-    { value: "50+", label: "Projetos Concluídos" },
-    { value: "30+", label: "Clientes Satisfeitos" },
-    { value: "10+", label: "Tecnologias Dominadas" },
+    { value: "2026", label: "Formação em ADS" },
+    { value: "3", label: "Certificações Tech" },
+    { value: "500+", label: "Horas de Estudo" },
+    { value: "∞", label: "Sede de Conhecimento" },
   ];
 
   return (
@@ -95,8 +95,8 @@ const About = () => {
           <div ref={imageRef} className="relative">
             <div className="relative overflow-hidden rounded-2xl">
               <img
-                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1887&auto=format&fit=crop"
-                alt="About Me"
+                src="/img/saulolucena.jpg"
+                alt="Saulo de Lucena"
                 className="w-full h-[600px] object-cover"
               />
               {/* Overlay */}
@@ -122,11 +122,9 @@ const About = () => {
                   </svg>
                 </div>
                 <div>
-                  <p className="font-bold text-white">
-                    Disponível para projetos
-                  </p>
+                  <p className="font-bold text-white">Aberto a Estágios</p>
                   <p className="text-[#b97836] text-sm">
-                    Vamos trabalhar juntos!
+                    Direito + Tech = Inovação!
                   </p>
                 </div>
               </div>
@@ -141,31 +139,68 @@ const About = () => {
 
             <div ref={textRef} className="mb-8 space-y-4 text-white/80">
               <p className="text-lg">
-                Sou um desenvolvedor apaixonado por criar experiências digitais
-                que não apenas funcionam perfeitamente, mas também inspiram e
-                engajam.
+                Sou um profissional em transição de carreira, com sólida
+                formação em Direito e 4 anos de experiência no setor jurídico,
+                agora focado em tecnologia e desenvolvimento de software.
               </p>
 
               <p>
-                Com mais de 5 anos de experiência em desenvolvimento web,
-                especializo-me em{" "}
-                <AnimatedText className="text-[#b97836]">React</AnimatedText>,
-                <AnimatedText className="text-[#b97836]">
-                  {" "}
-                  Three.js
-                </AnimatedText>{" "}
+                Atualmente cursando Análise e Desenvolvimento de Sistemas no
+                SENAC-PE, combino minha capacidade analítica e atenção aos
+                detalhes com paixão por criar soluções tecnológicas inovadoras.
+                Possuo competências em{" "}
+                <AnimatedText className="text-[#b97836]">Java</AnimatedText>,
+                <AnimatedText className="text-[#b97836]"> Python</AnimatedText>{" "}
                 e
                 <AnimatedText className="text-[#b97836]">
                   {" "}
-                  animações criativas
+                  JavaScript
+                </AnimatedText>
+                , com experiência em frameworks como Spring Boot, React e
+                Angular.
+              </p>
+
+              <p>
+                Certificado em{" "}
+                <AnimatedText className="text-[#b97836]">
+                  EndPoint Security
+                </AnimatedText>{" "}
+                pela Cisco e{" "}
+                <AnimatedText className="text-[#b97836]">
+                  Cyber Intelligence Professional
+                </AnimatedText>{" "}
+                pelo ADINT.
+              </p>
+
+              <p>
+                Minha experiência jurídica foi fundamental para o
+                desenvolvimento de habilidades interpessoais e profissionais
+                altamente valorizadas na área de tecnologia. Ao elaborar mais de
+                80 petições por mês, conduzir despachos com magistrados e
+                atender mais de 40 clientes mensalmente, refinei minha{" "}
+                <AnimatedText className="text-[#b97836] font-semibold">
+                  comunicação clara e assertiva
+                </AnimatedText>
+                ,{" "}
+                <AnimatedText className="text-[#b97836] font-semibold">
+                  resolução de problemas sob pressão
+                </AnimatedText>
+                ,{" "}
+                <AnimatedText className="text-[#b97836] font-semibold">
+                  trabalho em equipe multidisciplinar
+                </AnimatedText>{" "}
+                e uma forte{" "}
+                <AnimatedText className="text-[#b97836] font-semibold">
+                  adaptabilidade a contextos complexos e dinâmicos
                 </AnimatedText>
                 .
               </p>
 
               <p>
-                Minha abordagem combina código limpo, design intuitivo e
-                performance otimizada para entregar projetos que superam
-                expectativas.
+                Essas competências humanas — desenvolvidas no Direito — hoje são
+                diferenciais que levo para a tecnologia, permitindo que eu
+                colabore com times diversos, compreenda rapidamente novas
+                demandas e entregue soluções com empatia, precisão e eficácia.
               </p>
             </div>
 
@@ -182,6 +217,7 @@ const About = () => {
             </div>
 
             {/* CTA Button */}
+            
             <a
               href="#contact"
               className="inline-flex items-center gap-3 px-6 py-3 
@@ -212,3 +248,4 @@ const About = () => {
 };
 
 export default About;
+
