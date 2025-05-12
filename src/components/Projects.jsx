@@ -111,9 +111,9 @@ const Projects = () => {
       className="relative py-20 overflow-hidden bg-black lg:py-32"
     >
       {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-5">
+      <div className="absolute inset-0 opacity-5 parallax-bg">
         <div
-          className="absolute inset-0"
+          className="absolute inset-0 float-element"
           style={{
             backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23b97836' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
           }}
@@ -122,10 +122,13 @@ const Projects = () => {
 
       <div className="container relative z-10 px-4 mx-auto">
         <div className="mb-16 text-center">
-          <h2 ref={titleRef} className="mb-4 text-4xl font-bold md:text-6xl">
+          <h2
+            ref={titleRef}
+            className="mb-4 text-4xl font-bold md:text-6xl reveal-text"
+          >
             Projetos <span className="text-[#b97836]">Destacados</span>
           </h2>
-          <p className="max-w-2xl mx-auto text-lg text-white/70">
+          <p className="max-w-2xl mx-auto text-lg text-white/70 fade-in">
             Uma seleção de projetos que demonstram minha habilidade em criar
             experiências digitais excepcionais.
           </p>
@@ -138,7 +141,7 @@ const Projects = () => {
           {projects.map((project) => (
             <div
               key={project.id}
-              className={`project-card group relative cursor-pointer overflow-hidden rounded-2xl`}
+              className={`project-card fade-in group relative cursor-pointer overflow-hidden rounded-2xl`}
               onMouseEnter={() => setActiveProject(project.id)}
               onMouseLeave={() => setActiveProject(null)}
               style={{ height: "500px" }}
@@ -148,7 +151,7 @@ const Projects = () => {
                 <img
                   src={project.image}
                   alt={project.title}
-                  className="object-cover w-full h-full transition-transform duration-700 transform group-hover:scale-110"
+                  className="object-cover w-full h-full transition-transform duration-700 transform group-hover:scale-110 scale-on-scroll"
                 />
                 {/* Gradient Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent" />
@@ -159,7 +162,7 @@ const Projects = () => {
                 {/* Category Tag */}
                 <div className="mb-4 transition-transform duration-500 transform translate-y-10 group-hover:translate-y-0">
                   <span
-                    className="inline-block px-4 py-2 text-sm font-medium rounded-full"
+                    className="inline-block px-4 py-2 text-sm font-medium rounded-full magnetic"
                     style={{
                       backgroundColor: project.color + "20",
                       color: project.color,
@@ -193,9 +196,10 @@ const Projects = () => {
                 </div>
 
                 {/* Link */}
+
                 <a
                   href={project.link}
-                  className="inline-flex items-center gap-2 font-medium text-white transition-all duration-500 transform translate-y-10 opacity-0 group-hover:opacity-100 group-hover:translate-y-0"
+                  className="inline-flex items-center gap-2 font-medium text-white transition-all duration-500 transform translate-y-10 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 magnetic"
                   style={{ color: project.color }}
                 >
                   Ver Projeto
@@ -241,7 +245,7 @@ const Projects = () => {
             className="inline-flex items-center gap-3 px-8 py-4 
                      bg-transparent border-2 border-[#b97836] text-[#b97836] 
                      font-bold rounded-full transform transition-all duration-300 
-                     hover:bg-[#b97836] hover:text-black hover:scale-105"
+                     hover:bg-[#b97836] hover:text-black hover:scale-105 magnetic"
           >
             Ver Todos os Projetos
             <svg

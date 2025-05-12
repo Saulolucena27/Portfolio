@@ -77,7 +77,7 @@ const Footer = () => {
               <span className="text-xl font-bold text-white">TIGER</span>
             </div>
             <p className="max-w-sm mb-4 text-white/60">
-              Desenvolvedor Frontend especializado em criar experiências
+              Desenvolvedor FullStack especializado em criar experiências
               digitais únicas e memoráveis com tecnologias modernas.
             </p>
             {/* Social Links */}

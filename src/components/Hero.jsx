@@ -74,7 +74,10 @@ const Hero = () => {
       className="hero-section relative h-screen w-full bg-gradient-to-b from-black via-[#0a0a0a] to-black overflow-hidden"
     >
       {/* 3D Canvas Background */}
-      <div ref={canvasRef} className="absolute inset-0 w-full h-full">
+      <div
+        ref={canvasRef}
+        className="absolute inset-0 w-full h-full scale-on-scroll"
+      >
         <Canvas
           camera={{ position: [0, 0, 5], fov: 45 }}
           gl={{ antialias: true, alpha: true }}
@@ -95,7 +98,7 @@ const Hero = () => {
           <div className="max-w-4xl mx-auto text-center">
             <h1
               ref={titleRef}
-              className="mb-6 text-5xl font-bold leading-none md:text-7xl lg:text-8xl"
+              className="mb-6 text-5xl font-bold leading-none md:text-7xl lg:text-8xl reveal-text"
             >
               <span className="text-white">Creative</span>
               <br />
@@ -104,7 +107,7 @@ const Hero = () => {
 
             <p
               ref={subtitleRef}
-              className="max-w-2xl mx-auto mb-12 text-xl md:text-2xl text-white/70"
+              className="max-w-2xl mx-auto mb-12 text-xl md:text-2xl text-white/70 fade-in"
             >
               Transformando ideias em experiências digitais extraordinárias com
               React, Three.js e animações criativas.
@@ -116,7 +119,7 @@ const Hero = () => {
                 href="#projects"
                 className="px-8 py-4 bg-[#b97836] text-black font-bold rounded-full 
                          transform transition-all duration-300 hover:scale-105 
-                         hover:shadow-[0_0_30px_rgba(185,120,54,0.5)]"
+                         hover:shadow-[0_0_30px_rgba(185,120,54,0.5)] magnetic"
               >
                 Ver Projetos
               </a>
@@ -124,7 +127,7 @@ const Hero = () => {
                 href="#contact"
                 className="px-8 py-4 border-2 border-[#b97836] text-[#b97836] font-bold 
                          rounded-full transform transition-all duration-300 
-                         hover:bg-[#b97836] hover:text-black"
+                         hover:bg-[#b97836] hover:text-black magnetic"
               >
                 Entrar em Contato
               </a>
@@ -136,16 +139,16 @@ const Hero = () => {
       {/* Scroll Indicator */}
       <div
         ref={scrollRef}
-        className="absolute text-center transform -translate-x-1/2 bottom-8 left-1/2"
+        className="absolute text-center transform -translate-x-1/2 bottom-8 left-1/2 fade-in"
       >
         <p className="mb-2 text-sm text-white/50">Scroll para explorar</p>
-        <div className="flex justify-center w-6 h-10 mx-auto border-2 rounded-full border-white/30">
+        <div className="flex justify-center w-6 h-10 mx-auto border-2 rounded-full border-white/30 float-element">
           <div className="w-1.5 h-3 bg-white/50 rounded-full mt-2 animate-bounce"></div>
         </div>
       </div>
 
       {/* Gradient Overlay */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black to-transparent"></div>
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black to-transparent parallax-bg"></div>
     </section>
   );
 };

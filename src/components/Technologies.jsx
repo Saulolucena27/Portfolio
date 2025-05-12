@@ -2,11 +2,20 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useAnimation } from "../context/AnimationContext";
-import { 
-  FaJava, FaPython, FaReact, FaAngular, FaGitAlt, FaDatabase 
+import {
+  FaJava,
+  FaPython,
+  FaReact,
+  FaAngular,
+  FaGitAlt,
+  FaDatabase,
 } from "react-icons/fa";
-import { 
-  SiJavascript, SiSpringboot, SiMysql, SiPostgresql, SiSap
+import {
+  SiJavascript,
+  SiSpringboot,
+  SiMysql,
+  SiPostgresql,
+  SiSap,
 } from "react-icons/si";
 import { MdSecurity } from "react-icons/md";
 import { BiCodeAlt } from "react-icons/bi";
@@ -16,8 +25,9 @@ gsap.registerPlugin(ScrollTrigger);
 const Technologies = () => {
   const sectionRef = useRef(null);
   const [hoveredTech, setHoveredTech] = useState(null);
-  
-  const { isSectionAnimated, markSectionAsAnimated, isElementInView } = useAnimation();
+
+  const { isSectionAnimated, markSectionAsAnimated, isElementInView } =
+    useAnimation();
 
   const technologies = [
     { name: "Java", icon: FaJava, color: "#007396" },
@@ -40,7 +50,10 @@ const Technologies = () => {
     const section = sectionRef.current;
 
     const animateOnScroll = () => {
-      if (isElementInView(section, -100) && !isSectionAnimated("technologies")) {
+      if (
+        isElementInView(section, -100) &&
+        !isSectionAnimated("technologies")
+      ) {
         markSectionAsAnimated("technologies");
 
         gsap.fromTo(
@@ -71,12 +84,12 @@ const Technologies = () => {
       ref={sectionRef}
       className="relative py-20 overflow-hidden bg-black lg:py-32"
     >
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute w-96 h-96 bg-[#b97836] rounded-full blur-[128px] top-0 right-0" />
+      <div className="absolute inset-0 opacity-5 parallax-bg">
+        <div className="absolute w-96 h-96 bg-[#b97836] rounded-full blur-[128px] top-0 right-0 float-element" />
       </div>
 
       <div className="container relative z-10 px-4 mx-auto">
-        <h2 className="mb-12 text-4xl font-bold text-center md:text-5xl">
+        <h2 className="mb-12 text-4xl font-bold text-center md:text-5xl reveal-text">
           Tecnologias & <span className="text-[#b97836]">Ferramentas</span>
         </h2>
 
@@ -86,28 +99,37 @@ const Technologies = () => {
             return (
               <div
                 key={index}
-                className="relative tech-card group"
+                className="relative tech-card fade-in group"
                 onMouseEnter={() => setHoveredTech(index)}
                 onMouseLeave={() => setHoveredTech(null)}
               >
-                <div className="relative p-6 bg-[#0a0a0a] rounded-xl border border-[#b97836]/30 
+                <div
+                  className="relative p-6 bg-[#0a0a0a] rounded-xl border border-[#b97836]/30 
                               hover:border-[#b97836] transition-all duration-300 
-                              hover:shadow-[0_0_30px_rgba(185,120,54,0.3)]"
+                              hover:shadow-[0_0_30px_rgba(185,120,54,0.3)] magnetic scale-on-scroll"
                 >
                   {/* Texto */}
-                  <div className={`text-center transition-all duration-300 ${
-                    hoveredTech === index ? 'opacity-0 scale-75' : 'opacity-100 scale-100'
-                  }`}>
+                  <div
+                    className={`text-center transition-all duration-300 ${
+                      hoveredTech === index
+                        ? "opacity-0 scale-75"
+                        : "opacity-100 scale-100"
+                    }`}
+                  >
                     <p className="font-semibold text-white">{tech.name}</p>
                   </div>
 
                   {/* Ícone */}
-                  <div className={`absolute inset-0 flex items-center justify-center 
+                  <div
+                    className={`absolute inset-0 flex items-center justify-center 
                                   transition-all duration-300 ${
-                    hoveredTech === index ? 'opacity-100 scale-100' : 'opacity-0 scale-125'
-                  }`}>
-                    <Icon 
-                      size={48} 
+                                    hoveredTech === index
+                                      ? "opacity-100 scale-100"
+                                      : "opacity-0 scale-125"
+                                  }`}
+                  >
+                    <Icon
+                      size={48}
                       color={tech.color}
                       className="drop-shadow-[0_0_15px_rgba(185,120,54,0.5)]"
                     />

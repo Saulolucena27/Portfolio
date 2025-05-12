@@ -84,9 +84,9 @@ const About = () => {
       className="py-20 lg:py-32 bg-[#0a0a0a] relative overflow-hidden"
     >
       {/* Background elements */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute w-96 h-96 bg-[#b97836] rounded-full blur-[128px] -top-48 -left-48" />
-        <div className="absolute w-96 h-96 bg-[#e8a653] rounded-full blur-[128px] -bottom-48 -right-48" />
+      <div className="absolute inset-0 opacity-5 parallax-bg">
+        <div className="absolute w-96 h-96 bg-[#b97836] rounded-full blur-[128px] -top-48 -left-48 float-element" />
+        <div className="absolute w-96 h-96 bg-[#e8a653] rounded-full blur-[128px] -bottom-48 -right-48 float-element" />
       </div>
 
       <div className="container relative z-10 px-4 mx-auto">
@@ -97,14 +97,14 @@ const About = () => {
               <img
                 src="/img/saulolucena.jpg"
                 alt="Saulo de Lucena"
-                className="w-full h-[600px] object-cover"
+                className="w-full h-[600px] object-cover scale-on-scroll"
               />
               {/* Overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
             </div>
 
             {/* Floating Card */}
-            <div className="absolute -bottom-6 -right-6 bg-black/90 backdrop-blur-sm p-6 rounded-xl border border-[#b97836]/30">
+            <div className="absolute -bottom-6 -right-6 bg-black/90 backdrop-blur-sm p-6 rounded-xl border border-[#b97836]/30 float-element">
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 bg-[#b97836] rounded-full flex items-center justify-center">
                   <svg
@@ -133,18 +133,18 @@ const About = () => {
 
           {/* Content Section */}
           <div className="lg:pl-12">
-            <h2 ref={titleRef} className="mb-6 text-4xl font-bold md:text-5xl">
+            <h2 ref={titleRef} className="mb-6 text-4xl font-bold md:text-5xl reveal-text">
               Sobre <span className="text-[#b97836]">Mim</span>
             </h2>
 
             <div ref={textRef} className="mb-8 space-y-4 text-white/80">
-              <p className="text-lg">
+              <p className="text-lg fade-in">
                 Sou um profissional em transição de carreira, com sólida
                 formação em Direito e 4 anos de experiência no setor jurídico,
                 agora focado em tecnologia e desenvolvimento de software.
               </p>
 
-              <p>
+              <p className="fade-in">
                 Atualmente cursando Análise e Desenvolvimento de Sistemas no
                 SENAC-PE, combino minha capacidade analítica e atenção aos
                 detalhes com paixão por criar soluções tecnológicas inovadoras.
@@ -160,7 +160,7 @@ const About = () => {
                 Angular.
               </p>
 
-              <p>
+              <p className="fade-in">
                 Certificado em{" "}
                 <AnimatedText className="text-[#b97836]">
                   EndPoint Security
@@ -172,7 +172,7 @@ const About = () => {
                 pelo ADINT.
               </p>
 
-              <p>
+              <p className="fade-in">
                 Minha experiência jurídica foi fundamental para o
                 desenvolvimento de habilidades interpessoais e profissionais
                 altamente valorizadas na área de tecnologia. Ao elaborar mais de
@@ -196,7 +196,7 @@ const About = () => {
                 .
               </p>
 
-              <p>
+              <p className="fade-in">
                 Essas competências humanas — desenvolvidas no Direito — hoje são
                 diferenciais que levo para a tecnologia, permitindo que eu
                 colabore com times diversos, compreenda rapidamente novas
@@ -207,7 +207,7 @@ const About = () => {
             {/* Stats */}
             <div ref={statsRef} className="grid grid-cols-2 gap-6 mb-8">
               {stats.map((stat, index) => (
-                <div key={index} className="stat-item">
+                <div key={index} className="stat-item fade-in">
                   <div className="text-3xl font-bold text-[#b97836] mb-1">
                     {stat.value}
                   </div>
@@ -223,7 +223,7 @@ const About = () => {
               className="inline-flex items-center gap-3 px-6 py-3 
                        bg-[#b97836] text-black font-bold rounded-full 
                        transform transition-all duration-300 
-                       hover:scale-105 hover:shadow-[0_0_30px_rgba(185,120,54,0.5)]"
+                       hover:scale-105 hover:shadow-[0_0_30px_rgba(185,120,54,0.5)] magnetic"
             >
               Vamos Conversar
               <svg

@@ -3,17 +3,9 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useAnimation } from "../context/AnimationContext";
 import AnimatedText from "./AnimatedText";
-import { 
-  GiMuscleUp, 
-  GiHourglass,
-  GiTerror,
-  GiFireBowl 
-} from "react-icons/gi";
+import { GiMuscleUp, GiHourglass, GiTerror, GiFireBowl } from "react-icons/gi";
 import { FaTree } from "react-icons/fa";
-import { 
-  BiSolidQuoteLeft,
-  BiSolidQuoteRight 
-} from "react-icons/bi";
+import { BiSolidQuoteLeft, BiSolidQuoteRight } from "react-icons/bi";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -23,7 +15,8 @@ const WhyTiger = () => {
   const contentRef = useRef(null);
   const quotesRef = useRef(null);
 
-  const { isSectionAnimated, markSectionAsAnimated, isElementInView } = useAnimation();
+  const { isSectionAnimated, markSectionAsAnimated, isElementInView } =
+    useAnimation();
 
   useEffect(() => {
     if (isSectionAnimated("whytiger")) return;
@@ -52,7 +45,13 @@ const WhyTiger = () => {
         tl.fromTo(
           ".quote-item",
           { scale: 0.8, opacity: 0 },
-          { scale: 1, opacity: 1, duration: 0.6, stagger: 0.1, ease: "back.out(1.7)" },
+          {
+            scale: 1,
+            opacity: 1,
+            duration: 0.6,
+            stagger: 0.1,
+            ease: "back.out(1.7)",
+          },
           "-=0.3"
         );
       }
@@ -67,35 +66,35 @@ const WhyTiger = () => {
   }, [isSectionAnimated, markSectionAsAnimated, isElementInView]);
 
   const motivations = [
-    { 
-      icon: GiMuscleUp, 
-      text: "Fiz cansado", 
+    {
+      icon: GiMuscleUp,
+      text: "Fiz cansado",
       description: "Mesmo exausto após dias trabalhando no jurídico",
-      gradient: "from-orange-500 to-red-600"
+      gradient: "from-orange-500 to-red-600",
     },
-    { 
-      icon: FaTree, 
-      text: "Fiz sozinho", 
+    {
+      icon: FaTree,
+      text: "Fiz sozinho",
       description: "Sem mentoria, apenas com determinação",
-      gradient: "from-amber-500 to-orange-600"
+      gradient: "from-amber-500 to-orange-600",
     },
-    { 
-      icon: GiHourglass, 
-      text: "Fiz sem dinheiro", 
+    {
+      icon: GiHourglass,
+      text: "Fiz sem dinheiro",
       description: "Investindo cada centavo em conhecimento",
-      gradient: "from-yellow-500 to-amber-600"
+      gradient: "from-yellow-500 to-amber-600",
     },
-    { 
-      icon: GiTerror, 
-      text: "Fiz com medo", 
+    {
+      icon: GiTerror,
+      text: "Fiz com medo",
       description: "Enfrentando a incerteza da mudança",
-      gradient: "from-orange-600 to-red-700"
+      gradient: "from-orange-600 to-red-700",
     },
-    { 
-      icon: GiFireBowl, 
-      text: "Continuo fazendo", 
+    {
+      icon: GiFireBowl,
+      text: "Continuo fazendo",
       description: "Porque a transformação não para",
-      gradient: "from-red-500 to-red-700"
+      gradient: "from-red-500 to-red-700",
     },
   ];
 
@@ -106,11 +105,11 @@ const WhyTiger = () => {
       className="relative py-20 overflow-hidden bg-black lg:py-32"
     >
       {/* Background com a imagem do olho de tigre */}
-      <div className="absolute inset-0">
+      <div className="absolute inset-0 parallax-bg">
         <img
           src="/img/tiger-hero.png"
           alt="Tiger Eye"
-          className="object-cover w-full h-full opacity-20"
+          className="object-cover w-full h-full opacity-20 scale-on-scroll"
         />
       </div>
 
@@ -120,76 +119,104 @@ const WhyTiger = () => {
 
       {/* Efeito de parallax no olho do tigre */}
       <div className="absolute inset-0 overflow-hidden">
-        <div 
-          className="absolute -right-1/4 top-1/2 transform -translate-y-1/2 w-[60%] h-[60%] opacity-30"
-          style={{ 
-            backgroundImage: 'url(/img/tiger-hero.png)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            filter: 'brightness(1.2) contrast(1.1)'
+        <div
+          className="absolute -right-1/4 top-1/2 transform -translate-y-1/2 w-[60%] h-[60%] opacity-30 float-element"
+          style={{
+            backgroundImage: "url(/img/tiger-hero.png)",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            filter: "brightness(1.2) contrast(1.1)",
           }}
         />
       </div>
 
       <div className="container relative z-10 px-4 mx-auto">
         <div className="mb-16 text-center">
-          <h2 ref={titleRef} className="mb-4 text-4xl font-bold md:text-5xl lg:text-6xl">
+          <h2
+            ref={titleRef}
+            className="mb-4 text-4xl font-bold md:text-5xl lg:text-6xl reveal-text"
+          >
             Por que <span className="text-[#b97836]">Eye of the Tiger</span>?
           </h2>
-          
-          <p className="max-w-3xl mx-auto mb-8 text-xl text-white/80">
-            Como a música que inspirou milhões, minha jornada é sobre 
-            <AnimatedText className="text-[#b97836] font-semibold"> resistência</AnimatedText>,
-            <AnimatedText className="text-[#b97836] font-semibold"> superação</AnimatedText> e
-            <AnimatedText className="text-[#b97836] font-semibold"> determinação inabalável</AnimatedText>.
+
+          <p className="max-w-3xl mx-auto mb-8 text-xl text-white/80 fade-in">
+            Como a música que inspirou milhões, minha jornada é sobre
+            <AnimatedText className="text-[#b97836] font-semibold">
+              {" "}
+              resistência
+            </AnimatedText>
+            ,
+            <AnimatedText className="text-[#b97836] font-semibold">
+              {" "}
+              superação
+            </AnimatedText>{" "}
+            e
+            <AnimatedText className="text-[#b97836] font-semibold">
+              {" "}
+              determinação inabalável
+            </AnimatedText>
+            .
           </p>
 
           {/* Central Quote */}
-          <div className="relative mb-16">
-            <BiSolidQuoteLeft className="absolute -top-4 -left-8 text-4xl text-[#b97836]/30" />
+          <div className="relative mb-16 fade-in">
+            <BiSolidQuoteLeft className="absolute -top-4 -left-8 text-4xl text-[#b97836]/30 float-element" />
             <blockquote className="text-2xl italic font-bold md:text-3xl text-white/90">
               It's the eye of the tiger, it's the thrill of the fight
               <br />
               Rising up to the challenge of our rival
             </blockquote>
-            <BiSolidQuoteRight className="absolute -bottom-4 -right-8 text-4xl text-[#b97836]/30" />
-            <cite className="text-[#b97836] text-lg mt-4 block">— Survivor</cite>
+            <BiSolidQuoteRight className="absolute -bottom-4 -right-8 text-4xl text-[#b97836]/30 float-element" />
+            <cite className="text-[#b97836] text-lg mt-4 block">
+              — Survivor
+            </cite>
           </div>
         </div>
 
         {/* Motivation Cards */}
-        <div ref={contentRef} className="grid gap-6 mb-16 md:grid-cols-2 lg:grid-cols-5">
+        <div
+          ref={contentRef}
+          className="grid gap-6 mb-16 md:grid-cols-2 lg:grid-cols-5"
+        >
           {motivations.map((item, index) => {
             const Icon = item.icon;
             return (
               <div
                 key={index}
-                className="motivation-card relative p-6 bg-[#0a0a0a]/90 backdrop-blur-sm rounded-xl 
+                className="motivation-card fade-in relative p-6 bg-[#0a0a0a]/90 backdrop-blur-sm rounded-xl 
                          border border-[#b97836]/30 hover:border-[#b97836] transition-all duration-300
                          hover:transform hover:scale-105 hover:shadow-[0_0_30px_rgba(185,120,54,0.3)]
                          group overflow-hidden"
               >
                 {/* Gradient background on hover */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${item.gradient} opacity-0 
-                              group-hover:opacity-10 transition-opacity duration-300`} />
-                
+                <div
+                  className={`absolute inset-0 bg-gradient-to-br ${item.gradient} opacity-0 
+                              group-hover:opacity-10 transition-opacity duration-300`}
+                />
+
                 {/* Icon container */}
                 <div className="relative mb-4">
-                  <div className={`w-16 h-16 rounded-full bg-gradient-to-br ${item.gradient} 
+                  <div
+                    className={`w-16 h-16 rounded-full bg-gradient-to-br ${item.gradient} 
                                  flex items-center justify-center mb-4 mx-auto
-                                 group-hover:scale-110 transition-transform duration-300`}>
+                                 group-hover:scale-110 transition-transform duration-300 float-element`}
+                  >
                     <Icon className="text-3xl text-white" />
                   </div>
                 </div>
-                
+
                 <h3 className="text-xl font-bold text-[#b97836] mb-2 text-center">
                   {item.text}
                 </h3>
-                <p className="text-sm text-center text-white/70">{item.description}</p>
-                
+                <p className="text-sm text-center text-white/70">
+                  {item.description}
+                </p>
+
                 {/* Decorative element */}
-                <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#b97836] to-transparent 
-                              opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div
+                  className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#b97836] to-transparent 
+                              opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                />
               </div>
             );
           })}
@@ -197,24 +224,33 @@ const WhyTiger = () => {
 
         {/* Personal Story */}
         <div className="grid items-center gap-12 md:grid-cols-2">
-          <div>
-            <h3 className="mb-6 text-3xl font-bold">
+          <div className="fade-in">
+            <h3 className="mb-6 text-3xl font-bold reveal-text">
               A Transição é o <span className="text-[#b97836]">Desafio</span>
             </h3>
             <div className="space-y-4 text-white/80">
               <p>
-                Assim como Rocky Balboa subindo as escadas da Filadélfia, 
-                cada linha de código que escrevo é um degrau na minha transformação.
+                Assim como Rocky Balboa subindo as escadas da Filadélfia, cada
+                linha de código que escrevo é um degrau na minha transformação.
               </p>
               <p>
-                De advogado para desenvolvedor: uma jornada que exige a mesma 
-                <AnimatedText className="text-[#b97836]"> ferocidade do tigre</AnimatedText> e a
-                <AnimatedText className="text-[#b97836]"> resiliência do lutador</AnimatedText>.
+                De advogado para desenvolvedor: uma jornada que exige a mesma
+                <AnimatedText className="text-[#b97836]">
+                  {" "}
+                  ferocidade do tigre
+                </AnimatedText>{" "}
+                e a
+                <AnimatedText className="text-[#b97836]">
+                  {" "}
+                  resiliência do lutador
+                </AnimatedText>
+                .
               </p>
               <p>
-                Quando as noites são longas estudando algoritmos após um dia inteiro no fórum,
-                quando o código não compila pela milésima vez, quando dizem que é tarde demais
-                para mudar... é aí que o olho do tigre brilha mais forte.
+                Quando as noites são longas estudando algoritmos após um dia
+                inteiro no fórum, quando o código não compila pela milésima vez,
+                quando dizem que é tarde demais para mudar... é aí que o olho do
+                tigre brilha mais forte.
               </p>
             </div>
           </div>
@@ -228,16 +264,18 @@ const WhyTiger = () => {
             ].map((quote, index) => (
               <div
                 key={index}
-                className="quote-item relative flex items-center gap-4 p-4 bg-black/50 rounded-lg
+                className="quote-item fade-in relative flex items-center gap-4 p-4 bg-black/50 rounded-lg
                            border-l-4 border-[#b97836] hover:bg-black/70 transition-all
                            overflow-hidden group"
               >
                 {/* Background number */}
-                <span className="absolute -right-4 top-0 text-8xl font-bold text-[#b97836]/10
-                              group-hover:text-[#b97836]/20 transition-all duration-300">
+                <span
+                  className="absolute -right-4 top-0 text-8xl font-bold text-[#b97836]/10
+                              group-hover:text-[#b97836]/20 transition-all duration-300"
+                >
                   {index + 1}
                 </span>
-                
+
                 <div className="relative z-10 flex items-center gap-4">
                   <span className="text-3xl font-bold text-[#b97836] w-10">
                     {index + 1}
@@ -253,20 +291,19 @@ const WhyTiger = () => {
         </div>
 
         {/* Final CTA */}
-        <div className="mt-16 text-center">
+        <div className="mt-16 text-center fade-in">
           <p className="mb-8 text-2xl font-bold text-white">
             Este portfolio não é apenas código.
-            <br />
-            É a prova de que <span className="text-[#b97836]">a transformação é possível</span>.
+            <br />É a prova de que{" "}
+            <span className="text-[#b97836]">a transformação é possível</span>.
           </p>
-          
-          
+
           <a
             href="#projects"
             className="inline-flex items-center gap-3 px-8 py-4 
                      bg-[#b97836] text-black font-bold rounded-full 
                      transform transition-all duration-300 text-lg
-                     hover:scale-105 hover:shadow-[0_0_40px_rgba(185,120,54,0.5)]"
+                     hover:scale-105 hover:shadow-[0_0_40px_rgba(185,120,54,0.5)] magnetic"
           >
             Veja Minha Evolução
             <svg
